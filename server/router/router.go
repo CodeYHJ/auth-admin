@@ -6,7 +6,8 @@ import (
 )
 
 func AddRouter(e *echo.Echo) {
-	g := e.Group("/admin")
+
+	g := e.Group("/api")
 
 	g.GET("/token/list", handle.HandleToken)
 
@@ -17,4 +18,9 @@ func AddRouter(e *echo.Echo) {
 	g.GET("/client/list", handle.HandleClient)
 	g.POST("/client/add", handle.HandleClientAdd)
 	g.POST("/client/edit", handle.HandleClientEdit)
+
+	e.Static("/assets", "dist/assets")
+
+	e.File("*", "dist/index.html")
+
 }
