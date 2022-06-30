@@ -37,5 +37,6 @@ type Client struct {
 	Secret    string    `gorm:"column:secret; not null; type:varchar(500); comment:secret" json:"secret"`
 	Domain    string    `gorm:"column:domain; not null; type:varchar(500); comment:domain" json:"domain"`
 	Data      JSON      `gorm:"column:data; type:json" json:"data"`
+	CreatedAt time.Time `gorm:"column:created_at; type:time" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at; type:time" json:"updated_at"`
 }

@@ -11,3 +11,12 @@ type ClientEditQuery struct {
 	Secret string `json:"secret"`
 	ID     string `json:"id" validate:"required"`
 }
+
+type AccountAddQuery struct {
+	UserName string `json:"username"validate:"required"`
+	Paw      string `json:"paw" validate:"required"`
+}
+type AccountEditQuery struct {
+	ID  uint   `json:"id" validate:"required"`
+	Paw string `json:"paw" validate:"required"`
+}

@@ -7,9 +7,14 @@ import (
 
 func AddRouter(e *echo.Echo) {
 	g := e.Group("/admin")
-	g.GET("/client/list", handle.HandleClient)
+
 	g.GET("/token/list", handle.HandleToken)
+
 	g.GET("/account/list", handle.HandleAccount)
+	g.POST("/account/add", handle.HandleAccountAdd)
+	g.POST("/account/edit", handle.HandleAccountEdit)
+
+	g.GET("/client/list", handle.HandleClient)
 	g.POST("/client/add", handle.HandleClientAdd)
 	g.POST("/client/edit", handle.HandleClientEdit)
 }
