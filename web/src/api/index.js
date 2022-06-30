@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const request = axios.create({ baseURL: "/api" })
+const request = axios.create({ baseURL: import.meta.env.API_URL })
 
 request.interceptors.response.use(res => {
     const { data, code, msg } = res.data
@@ -11,22 +11,22 @@ request.interceptors.response.use(res => {
 })
 
 export const getAccountList = () => {
-    return request.get("/admin/account/list")
+    return request.get("/api/account/list")
 }
 
 export const editAccount = (data) => {
-    return request.post("/admin/account/edit", data)
+    return request.post("/api/account/edit", data)
 }
 
 // export const addAccountList = () => {
-//     return request.post("/admin/account/add")
+//     return request.post("/api/account/add")
 // }
 
 
 export const getClientList = () => {
-    return request.get("/admin/client/list")
+    return request.get("/api/client/list")
 }
 
 export const getTokenList = () => {
-    return request.get("/admin/token/list")
+    return request.get("/api/token/list")
 }
