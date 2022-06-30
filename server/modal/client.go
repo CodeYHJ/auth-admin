@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"gorm.io/gorm"
+	"time"
 )
 
 type JSON json.RawMessage
@@ -33,10 +33,9 @@ func (Client) TableName() string {
 }
 
 type Client struct {
-	gorm.Model
-	ID     string `gorm:"column:id; primaryKey; not null; type:varchar(500);comment:id" json:"id"`
-	Secret string `gorm:"column:secret; not null; type:varchar(500); comment:secret" json:"secret"`
-	Domain string `gorm:"column:domain; not null; type:varchar(500); comment:domain" json:"domain"`
-	Data   JSON   `gorm:"column:data; type:json" json:"data"`
-	//CreatedAt time.Time `gorm:"column:created_at; type:time" json:"created_at"`
+	ID        string    `gorm:"column:id; primaryKey; not null; type:varchar(500);comment:id" json:"id"`
+	Secret    string    `gorm:"column:secret; not null; type:varchar(500); comment:secret" json:"secret"`
+	Domain    string    `gorm:"column:domain; not null; type:varchar(500); comment:domain" json:"domain"`
+	Data      JSON      `gorm:"column:data; type:json" json:"data"`
+	UpdatedAt time.Time `gorm:"column:updated_at; type:time" json:"updated_at"`
 }

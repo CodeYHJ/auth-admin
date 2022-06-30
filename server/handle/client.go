@@ -7,6 +7,7 @@ import (
 	"github.com/codeyhj/auth-admin/server/util"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"time"
 )
 
 func HandleClient(c echo.Context) error {
@@ -36,8 +37,10 @@ func HandleClientAdd(c echo.Context) error {
 	cModal := &modal.Client{ID: id}
 	d.First(&cModal)
 	if cModal.Domain == "" {
+		updateAt := time.Now()
 		cModal.Secret = secret
 		cModal.Domain = domain
+		cModal.UpdatedAt = updateAt
 		jsonData, err := json.Marshal(&cModal)
 		if err != nil {
 			return c.JSON(http.StatusOK, res)
@@ -60,19 +63,20 @@ func HandleClientEdit(c echo.Context) error {
 	if err := c.Validate(q); err != nil {
 		return c.JSON(http.StatusOK, res)
 	}
-	domain := c.FormValue("domain")
-	secret := c.FormValue("secret")
-	id := c.FormValue("secret")
+	domain := q.Domain
+	secret := q.Secret
+	id := q.ID
 	d := db.GetDB()
 	cModal := &modal.Client{ID: id}
 	d.First(&cModal)
 	if cModal.Domain != "" {
-		jsonData, err := json.Marshal(&modal.Client{Domain: domain, Secret: secret, ID: id})
+		updateAt := time.Now()
+		jsonData, err := json.Marshal(&modal.Client{Domain: domain, Secret: secret, ID: id, UpdatedAt: updateAt})
 		if err != nil {
 			return c.JSON(http.StatusOK, res)
 		}
 		cModal.Data = jsonData
-		d.Model(&modal.Client{ID: id}).Updates(&modal.Client{Domain: domain, Secret: secret, Data: jsonData})
+		d.Model(&modal.Client{ID: id}).Updates(&modal.Client{Domain: domain, Secret: secret, Data: jsonData, UpdatedAt: updateAt})
 	}
 	return c.JSON(http.StatusOK, res)
 
