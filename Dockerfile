@@ -2,7 +2,7 @@ FROM node:16 as NodeBuilder
 
 WORKDIR /app
 
-COPY ./web /app/
+COPY ./web/* /app/web/
 
 RUN cd web && yarn && yarn install && yarn build
 
