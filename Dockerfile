@@ -1,4 +1,4 @@
-FROM node:latest-alpine as NodeBuilder
+FROM node:16 as NodeBuilder
 
 WORKDIR /app
 
