@@ -1,10 +1,10 @@
 FROM node:16 as NodeBuilder
 
-WORKDIR /app
+WORKDIR /app/web
 
 COPY ./web/* /app/web/
 
-RUN cd web && yarn && yarn install && yarn build
+RUN yarn && yarn install && yarn build
 
 FROM golang:1.17-alpine as GoBuilder
 
@@ -22,7 +22,7 @@ ENV GO111MODULE=on
 
 COPY . /app/
 
-COPY --from=NodeBuilder /app/dist /app/dist
+COPY --from=NodeBuilder /app/dist/* /app/dist/
 
 RUN go mod download && go mod verify && go build -v -o go_server
 
