@@ -22,8 +22,6 @@ ENV GO111MODULE=on
 
 COPY . /app/
 
-COPY --from=NodeBuilder /app/dist/* /app/dist/
-
 RUN cd server && go mod download && go mod verify && go build -v -o go_server
 
 
@@ -36,7 +34,9 @@ ENV APP_PATH /app
 
 RUN mkdir -p "$APP_PATH" "$APP_PATH/bin" && chmod -R 777 "$APP_PATH"
 
-COPY --from=GoBuilder /app/server/go_server /app/bin/go_server
+COPY --from=GoBuilder /app/dist/go_server /app/bin/go_server
+
+COPY --from=NodeBuilder /app/dist/* /app/dist/
 
 WORKDIR $APP_PATH
 
